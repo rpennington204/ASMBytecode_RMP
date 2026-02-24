@@ -11,11 +11,11 @@ import java.io.FileOutputStream;
 
 import static org.objectweb.asm.Opcodes.*;
 
-public class GenPrGT {
+public class GenEcho {
 	public static void main(String args[]) throws IOException{
         
         ClassWriter cw=new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-		cw.visit(V11, ACC_PUBLIC+ACC_SUPER, "PrGT", null, "java/lang/Object", null);
+		cw.visit(V11, ACC_PUBLIC+ACC_SUPER, "Echo", null, "java/lang/Object", null);
 
         //Create the class
 		{
@@ -31,36 +31,24 @@ public class GenPrGT {
 		MethodVisitor methodVisitor=cw.visitMethod(ACC_PUBLIC+ACC_STATIC, "main", "([Ljava/lang/String;)V", null, null);
         methodVisitor.visitCode();
         
+        //establishes scanner reference and duplicates it
+        methodVisitor.visitTypeInsn(Opcodes.NEW, "java/util/Scanner");
+        methodVisitor.visitInsn(Opcodes.DUP);
         
-        //Declare labels to Jump to
-        Label alt = new Label();
-        Label end = new Label();
+        //gets system.in, stores Scanner reference in 1
+        methodVisitor.visitFieldInsn(GETSTATIC, "java/lang/System", "in", "Ljava/io/InputStream;");
+        methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/util/Scanner", "<init>", "(Ljava/io/InputStream;)V", false);
+        methodVisitor.visitVarInsn(Opcodes.ASTORE, 1);
         
-        //Store 10 in 1
-        methodVisitor.visitIntInsn(Opcodes.BIPUSH, 10);
-        methodVisitor.visitVarInsn(Opcodes.ISTORE, 1);
+        //scans next line
+        methodVisitor.visitVarInsn(Opcodes.ALOAD,1);
+        methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/util/Scanner", "nextLine", "()Ljava/lang/String;", false);
+        methodVisitor.visitVarInsn(Opcodes.ASTORE, 2);
         
-        //Store 5 in 2
-        methodVisitor.visitIntInsn(Opcodes.BIPUSH, 15);
-        methodVisitor.visitVarInsn(Opcodes.ISTORE, 2);
-        
-        methodVisitor.visitVarInsn(Opcodes.ILOAD, 1);
-        methodVisitor.visitVarInsn(Opcodes.ILOAD, 2);
-        
-        //If Var 2 > 1, jump to alt. Else, load var 1, and jump to end
-        methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLT, alt);
+        //store and print string
         methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-        methodVisitor.visitVarInsn(Opcodes.ILOAD, 1);
-        methodVisitor.visitJumpInsn(Opcodes.GOTO, end);
-        
-        methodVisitor.visitLabel(alt);
-        //Load var 2
-        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-        methodVisitor.visitVarInsn(Opcodes.ILOAD, 2);
-        
-        methodVisitor.visitLabel(end);
-        //Print greater var
-        methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream",  "println", "(I)V", false);
+        methodVisitor.visitVarInsn(Opcodes.ALOAD, 2);
+        methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream",  "println", "(Ljava/lang/String;)V", false);
         
         methodVisitor.visitInsn(Opcodes.RETURN);
 		methodVisitor.visitMaxs(0, 0);
@@ -69,9 +57,8 @@ public class GenPrGT {
         cw.visitEnd();
         
         //save bytecode into disk
-		FileOutputStream out=new FileOutputStream("./PrGT.class");
+		FileOutputStream out=new FileOutputStream("./Echo.class");
 		out.write(cw.toByteArray());
 		out.close();
 	}
-
 }
