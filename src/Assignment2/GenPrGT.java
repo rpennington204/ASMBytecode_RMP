@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 
 import static org.objectweb.asm.Opcodes.*;
 
+@SuppressWarnings("unused")
 public class GenPrGT {
 	public static void main(String args[]) throws IOException{
         

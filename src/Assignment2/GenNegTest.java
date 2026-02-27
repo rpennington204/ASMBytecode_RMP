@@ -1,5 +1,6 @@
 package Assignment2;
 
+
 import org.objectweb.asm.Label;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +10,10 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import java.io.FileOutputStream;
 
+
 import static org.objectweb.asm.Opcodes.*;
 
+@SuppressWarnings("unused")
 public class GenNegTest {
 	public static void main(String args[]) throws IOException{
         

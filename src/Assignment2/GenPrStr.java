@@ -1,6 +1,7 @@
 package Assignment2;
 
 import java.io.FileOutputStream;
+
 import java.io.IOException;
 
 import org.objectweb.asm.ClassWriter;
@@ -10,6 +11,7 @@ import org.objectweb.asm.Opcodes;
 import java.io.FileOutputStream;
 
 import static org.objectweb.asm.Opcodes.*;
+@SuppressWarnings("unused")
 
 public class GenPrStr {
 public static void main(String args[]) throws IOException{

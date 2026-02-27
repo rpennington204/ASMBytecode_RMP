@@ -10,6 +10,7 @@ import org.objectweb.asm.Opcodes;
 import java.io.FileOutputStream;
 
 import static org.objectweb.asm.Opcodes.*;
+@SuppressWarnings("unused")
 
 public class GenIfElse {
 	public static void main(String args[]) throws IOException{
