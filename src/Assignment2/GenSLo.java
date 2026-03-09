@@ -50,21 +50,21 @@ public class GenSLo {
         methodVisitor.visitVarInsn(Opcodes.LLOAD, 5);
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream",  "println", "(J)V", false);
         
-      //push 37.5 onto the stack, store in 7 and 8
+      //push 37.5 onto the stack, store in 6 and 7
         methodVisitor.visitLdcInsn((Double) 37.5);
         methodVisitor.visitVarInsn(Opcodes.DSTORE, 6);
         
-        //push 200 onto the stack, store in 9 and 10
+        //push 12.5 onto the stack, store in 8 and 9
         methodVisitor.visitLdcInsn((Double) 12.5);
         methodVisitor.visitVarInsn(Opcodes.DSTORE, 8);
         
-        //Load the Longs and subtract them, store result in 11 and 12
+        //Load the Doubles and subtract them, store result in 11 and 12
         methodVisitor.visitVarInsn(Opcodes.DLOAD, 6);
         methodVisitor.visitVarInsn(Opcodes.DLOAD, 8);
         methodVisitor.visitInsn(Opcodes.DSUB);
         methodVisitor.visitVarInsn(Opcodes.DSTORE, 11);
         
-        //prints result of 500 - 300
+        //prints result of 37.5 - 12.5
         methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         methodVisitor.visitVarInsn(Opcodes.DLOAD, 11);
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream",  "println", "(D)V", false);
