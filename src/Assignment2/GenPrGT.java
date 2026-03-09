@@ -41,7 +41,7 @@ public class GenPrGT {
         methodVisitor.visitIntInsn(Opcodes.BIPUSH, 10);
         methodVisitor.visitVarInsn(Opcodes.ISTORE, 1);
         
-        //Store 5 in 2
+        //Store 15 in 2
         methodVisitor.visitIntInsn(Opcodes.BIPUSH, 15);
         methodVisitor.visitVarInsn(Opcodes.ISTORE, 2);
         
